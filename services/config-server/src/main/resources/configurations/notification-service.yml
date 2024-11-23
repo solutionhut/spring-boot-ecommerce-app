@@ -1,0 +1,43 @@
+spring:
+  data:
+    mongodb:
+      username: ecomuser
+      password: ecomPassw0rd
+      host: localhost
+      port: 27017
+      database: customer
+      authentication-database: admin
+
+  kafka:
+    consumer:
+      bootstrap-servers: localhost:9092
+      group-id: paymentGroup, orderGroup
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring.json.trusted.packages: tech.solutionhut.ecommerce.*
+        spring.json.type.mapping: paymentConfirmation:tech.solutionhut.ecommerce.notification.record.PaymentConfirmation,orderConfirmation:tech.solutionhut.ecommerce.notification.record.OrderConfirmation
+
+  mail:
+    host: localhost
+    port: 1025
+    username: ecomuser
+    password: ecomPassw0rd
+    properties:
+      mail:
+        smtp:
+          trust: "*"
+        auth: true
+        starttls:
+          enabled: true
+        connectiontimeout: 5000
+        timeout: 3000
+        writetimeout: 5000
+
+smtp:
+  sender:
+    mail: bhushan.padhye@solutionhut.tech
+
+server:
+  port: 8040
